@@ -41,7 +41,7 @@ services:
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - /home/kakan/Workspace/keycloak-demo/certs:/etc/ssl/certs:ro
+      - ${CERT_VOLUME_MOUNT}:/etc/ssl/certs:ro
     command: [ 'start',
                '--https-certificate-file=/etc/ssl/certs/keycloak.crt.pem',
                '--https-certificate-key-file=/etc/ssl/certs/keycloak.key.pem',
