@@ -26,13 +26,33 @@ services:
     ports:
       - "${PGADMIN_PORT:-5050}:80"
 
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:25.0.0
+#    container_name: keycloak_container
+#    restart: unless-stopped
+#    ports:
+#      - 8088:8080
+#      - 8081:8443
+#    environment:
+#      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+#      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+#      KC_DB: postgres
+#      KC_DB_URL: jdbc:postgresql://postgres_db:5432/auth_db
+#      KC_DB_USERNAME: postgres
+#      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+#    volumes:
+#      - ${CERT_VOLUME_MOUNT}:/etc/ssl/certs:ro
+#    command: [ 'start',
+#               '--https-certificate-file=/etc/ssl/certs/keycloak.crt.pem',
+#               '--https-certificate-key-file=/etc/ssl/certs/keycloak.key.pem',
+#               '--hostname=auth.helloworld.com'
+#    ]
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.0
     container_name: keycloak_container
     restart: unless-stopped
     ports:
-      - 8088:8080
-      - 8081:8443
+      - 8081:8080
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -40,13 +60,7 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres_db:5432/auth_db
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - ${CERT_VOLUME_MOUNT}:/etc/ssl/certs:ro
-    command: [ 'start',
-               '--https-certificate-file=/etc/ssl/certs/keycloak.crt.pem',
-               '--https-certificate-key-file=/etc/ssl/certs/keycloak.key.pem',
-               '--hostname=localhost'
-    ]
+    command: ['start-dev']
 volumes:
   postgres:
   pgadmin:
