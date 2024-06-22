@@ -1,0 +1,22 @@
+# Security Configuration
+spring:
+  application:
+    name: MovieRatingService
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_JWT_ISSUER_URI}
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+# JWT Configuration
+jwt:
+  auth:
+    converter:
+      resource-id: ${OAUTH_RESOURCE_ID}
+      principal-attribute: sub
+
+# Logging Configuration
+logging:
+  level:
+    org.springframework.security: DEBUG
